@@ -1,0 +1,1 @@
+(format t "~s = ~s~%" '(INTERSECTION '(LET US SEE) '(LET US SEE)) (INTERSECTION '(LET US SEE) '(LET US SEE)))

@@ -1,0 +1,6 @@
+(let ((books '((war-and-peace leo-tostoy)
+               (alice-in-wonderland lewis-carol)
+               (odyssey homer)
+               (divine-comedy dante-alighieri)
+               (romeo-and-juliet william-shakespeare))))
+  (format t "~s~%" table))
