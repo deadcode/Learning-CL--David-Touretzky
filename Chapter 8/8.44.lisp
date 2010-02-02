@@ -1,0 +1,12 @@
+(defun tree-depth (x)
+  (cond ((null x) 0)
+        ((atom x) 0)
+        (t (max (+ 1 (tree-depth (car x)))
+                (+ 1 (tree-depth (cdr x)))))))
+
+(let ((test1 '(tree-depth '(a . b)))
+      (test2 '(tree-depth '((a b c d))))
+      (test3 '(tree-depth '((a . b) . (c . d)))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

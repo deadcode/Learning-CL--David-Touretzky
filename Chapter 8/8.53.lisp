@@ -1,0 +1,15 @@
+(defun largest-even-rec (x current-largest)
+  (declare (notinline largest-even-rec))
+    (cond ((null x) current-largest)
+          ((and (evenp (first x))
+                (> (first x) current-largest))
+           (largest-even-rec (rest x) (first x)))
+          (t (largest-even-rec (rest x) current-largest))))
+
+(defun largest-even (x)
+  (largest-even-rec x 0))
+
+(let ((test1 '(largest-even '(5 2 4 3)))
+      (test2 '(largest-even '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2)))

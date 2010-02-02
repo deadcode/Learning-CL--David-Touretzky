@@ -1,0 +1,13 @@
+(defun my-assoc (e table)
+  (cond ((null table) nil)
+        ((equal e (first (car table))) (car table))
+        (t (my-assoc e (rest table)))))
+
+(let ((test1 '(my-assoc 're '((do 1)(re 2)(mi 3)(fa 4)(sol 5)(la 6)(si 7))))
+      (test2 '(my-assoc 'si '((do 1)(re 2)(mi 3)(fa 4)(sol 5)(la 6)(si 7))))
+      (test3 '(my-assoc 'di '((do 1)(re 2)(mi 3)(fa 4)(sol 5)(la 6)(si 7))))
+      (test4 '(my-assoc 'di '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3))
+  (format t "~s = ~s~%" test4 (eval test4)))

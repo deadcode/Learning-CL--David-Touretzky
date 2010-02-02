@@ -1,0 +1,13 @@
+(defun my-subst (new old tree)
+  (cond ((null tree) nil)
+        ((equal old tree) new)
+        ((atom tree) tree)
+        (t (cons (my-subst new old (car tree))
+                 (my-subst new old (cdr tree))))))
+
+(let ((test1 '(my-subst 'fowl 'foo '((foo called)(bar)(baz)(got cross(with foo)))))
+      (test2 '(my-subst 'fowl 'fubar '((foo called)(bar)(baz)(got cross(with foo)))))
+      (test3 '(subst 'fowl 'foo '((foo called)(bar)(baz)(got cross(with foo))))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

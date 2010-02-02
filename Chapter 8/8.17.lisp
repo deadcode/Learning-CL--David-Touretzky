@@ -1,0 +1,11 @@
+(defun find-first-odd (x)
+  (cond ((null x) nil)
+        ((oddp (first x)) (first x))
+        (t (find-first-odd (rest x)))))
+
+(let ((test1 '(find-first-odd '(2 4 6 7 8 10 11)))
+      (test2 '(find-first-odd '(2 4 6 8 10 11)))
+      (test3 '(find-first-odd '(2 4 6 8 10 12))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

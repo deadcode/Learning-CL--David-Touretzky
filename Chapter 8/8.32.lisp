@@ -1,0 +1,12 @@
+(defun sum-numeric-elements (x)
+  (cond ((null x) 0)
+        ((numberp (first x))
+         (+ (first x) (sum-numeric-elements (rest x))))
+        (t (sum-numeric-elements (rest x)))))
+
+(let ((test1 '(sum-numeric-elements '(3 bears 3 bowls and 1 girl)))
+      (test2 '(sum-numeric-elements '(a bear a bowl and no girl)))
+      (test3 '(sum-numeric-elements '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

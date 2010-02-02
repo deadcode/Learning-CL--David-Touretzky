@@ -1,0 +1,11 @@
+(defun pairings (listx listy)
+  (cond ((or (null listx) (null listy)) nil)
+        (t (append (list (list (car listx) (car listy)))
+                   (pairings (cdr listx) (cdr listy))))))
+
+(let ((test1 '(pairings '(a b c) '(1 2 3)))
+      (test2 '(pairings '(a b c) '(1 2 3 4)))
+      (test3 '(pairings '(a b c d) '(1 2 3))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

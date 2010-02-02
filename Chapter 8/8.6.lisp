@@ -1,0 +1,10 @@
+(defun alloddp (x)
+  (declare (NOTINLINE alloddp))
+  (cond ((null x) t)
+        (t (and (oddp (first x))
+                (alloddp (rest x))))))
+
+(let ((test1 '(alloddp '(1 3 5 -3 7)))
+      (test2 '(alloddp '(1 3 5 0 7))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2)))

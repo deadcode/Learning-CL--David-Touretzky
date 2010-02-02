@@ -1,0 +1,11 @@
+(defun my-nth (n x)
+  (cond ((null x) nil)
+        ((zerop n) (first x))
+        (t (my-nth (- n 1) (rest x)))))
+
+(let ((test1 '(my-nth 5 '(a b c)))
+      (test2 '(my-nth 1000 '(a b c)))
+      (test3 '(my-nth 2 '(a b c))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

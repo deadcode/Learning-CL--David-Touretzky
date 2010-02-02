@@ -1,0 +1,10 @@
+(defun paren-depth (x)
+  (cond ((null x) 0)
+        ((atom x) 0)
+        (t (max (+ 1 (paren-depth (car x)))
+                (paren-depth (cdr x))))))
+
+(let ((test1 '(paren-depth '(a b c)))
+      (test2 '(paren-depth '(a b ((c) d) e))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2)))

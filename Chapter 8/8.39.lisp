@@ -1,0 +1,12 @@
+(defun count-atoms (x)
+  (cond ((null x) 1)
+        ((atom x) 1)
+        (t (+ (count-atoms (car x))
+              (count-atoms (cdr x))))))
+
+(let ((test1 '(count-atoms '(hark (harold the angel) sings)))
+      (test2 '(count-atoms '(a (b) c)))
+      (test3 '(count-atoms '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

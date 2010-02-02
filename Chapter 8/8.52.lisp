@@ -1,0 +1,18 @@
+(defun set-diff-rec (set1 set2)
+  (cond ((null set1) nil)
+        ((member (first set1) set2) (set-diff-rec (rest set1) set2))
+        (t (cons (first set1) (set-diff-rec (rest set1) set2)))))
+
+(defun my-union (x y)
+  (append x (set-diff-rec y x)))
+
+(let ((test1 '(my-union '(a b c d e) '(a e i o u)))
+      (test2 '(my-union '(a b c d e) '(z y x w v)))
+      (test3 '(my-union '(a b c d e) '()))
+      (test4 '(my-union '() '(a b c d e)))
+      (test5 '(my-union '() '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3))
+  (format t "~s = ~s~%" test4 (eval test4))
+  (format t "~s = ~s~%" test5 (eval test5)))

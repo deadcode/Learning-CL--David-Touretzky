@@ -1,0 +1,26 @@
+(defun count-odd (x)
+  (cond ((null x) 0)
+        ((oddp (first x))
+         (+ 1 (count-odd (rest x))))
+        (t (count-odd (rest x)))))
+
+(let ((test1 '(count-odd '(4 5 6 7 8)))
+      (test2 '(count-odd '(0 2 4 6 8)))
+      (test3 '(count-odd '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))
+
+(defun count-odd (x)
+  (cond ((null x) 0)
+        (t
+          (+ (cond ((oddp (first x)) 1)
+                   (t 0))
+             (count-odd (rest x))))))
+
+(let ((test1 '(count-odd '(4 5 6 7 8)))
+      (test2 '(count-odd '(0 2 4 6 8)))
+      (test3 '(count-odd '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

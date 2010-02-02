@@ -1,0 +1,10 @@
+(defun laugh (n)
+  (cond ((<= n 0) nil)
+        (t (cons 'ha (laugh (- n 1))))))
+
+(let ((test1 '(laugh 5))
+      (test2 '(laugh 0))
+      (test3 '(laugh -1)))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

@@ -1,0 +1,17 @@
+(defun count-cons (x)
+  (cond ((null x) 0)
+        ((atom x) 0)
+        (t (+ 1
+              (count-cons (car x))
+              (count-cons (cdr x))))))
+
+(let ((test1 '(count-cons '(a (b) c)))
+      (test2 '(count-cons '(foo)))
+      (test3 '(count-cons '(foo bar)))
+      (test4 '(count-cons '((foo))))
+      (test5 '(count-cons 'fred)))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3))
+  (format t "~s = ~s~%" test4 (eval test4))
+  (format t "~s = ~s~%" test5 (eval test5)))

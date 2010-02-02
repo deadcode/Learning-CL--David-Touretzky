@@ -1,0 +1,13 @@
+(defun rec-assoc (e table)
+  (cond ((null table) nil)
+        ((equal e (first (car table))) (car table))
+        (t (rec-assoc e (rest table)))))
+
+(let ((test1 '(rec-assoc 'b '((a 1)(b 2)(c 3)(d 4)(e 5))))
+      (test2 '(rec-assoc 'e '((a 1)(b 2)(c 3)(d 4)(e 5))))
+      (test3 '(rec-assoc 'f '((a 1)(b 2)(c 3)(d 4)(e 5))))
+      (test4 '(rec-assoc 'f '())))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3))
+  (format t "~s = ~s~%" test4 (eval test4)))

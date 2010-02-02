@@ -1,0 +1,16 @@
+(defun count-down (n)
+  (cond ((<= n 0) nil)
+        (t (cons n (count-down (- n 1))))))
+
+(defun rec-fact (n)
+  (let ((seq-n (count-down n)))
+    (reduce #'* seq-n)))
+
+(let ((test1 '(rec-fact 1))
+      (test2 '(rec-fact 2))
+      (test3 '(rec-fact 5))
+      (test4 '(rec-fact 0)))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3))
+  (format t "~s = ~s~%" test4 (eval test4)))

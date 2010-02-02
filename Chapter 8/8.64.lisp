@@ -1,0 +1,12 @@
+(defun tree-find-if (func tree)
+  (cond ((null tree) nil)
+        ((and (atom (first tree))
+              (funcall func (first tree)))
+         (first tree))
+        ((atom (first tree)) nil)
+        ((tree-find-if func (car tree)))
+        ((tree-find-if func (cdr tree)))
+        (t nil)))
+
+(let ((test1 '(tree-find-if #'oddp '((2 4)(5 6)7))))
+  (format t "~s = ~s~%" test1 (eval test1)))

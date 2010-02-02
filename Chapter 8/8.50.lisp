@@ -1,0 +1,11 @@
+(defun sublists (x)
+  (cond ((null x) nil)
+        (t (append (list x)
+                   (sublists (rest x))))))
+
+(let ((test1 '(sublists '(fee fie foe)))
+      (test2 '(sublists '()))
+      (test3 '(sublists '(fee))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))

@@ -1,0 +1,11 @@
+(defun square-list (x)
+  (let ((n (first x)))
+    (cond ((null x) nil)
+          (t (cons (* n n) (square-list (rest x)))))))
+
+(let ((test1 '(square-list '()))
+      (test2 '(square-list '(2)))
+      (test3 '(square-list '(3 4 5 6))))
+  (format t "~s = ~s~%" test1 (eval test1))
+  (format t "~s = ~s~%" test2 (eval test2))
+  (format t "~s = ~s~%" test3 (eval test3)))
