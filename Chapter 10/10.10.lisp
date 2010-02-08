@@ -1,0 +1,10 @@
+(defun ntack (x sym)
+  (setf (cdr (last x)) sym))
+
+(let* ((sample-list ''(fee fie foe))
+       (sym ''(fum))
+       (test1 (list 'ntack sample-list sym)))
+  (format t "~&sample-list = ~s, sym = ~s" sample-list sym)
+  (format t "~&Testing ~s" test1)
+  (eval test1)
+  (format t "~&sample-list = ~s, sym = ~s" sample-list sym))

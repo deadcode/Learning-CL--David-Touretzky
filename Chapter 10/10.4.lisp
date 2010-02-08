@@ -1,0 +1,21 @@
+(setf *friends* '(joe fred cindy bruce))
+
+(defun forget (person)
+  (cond ((member person *friends*)
+         (format t "~&I am sorry, ~s slips my memory" person)
+         (setf *friends* (remove person *friends*)))
+        (t
+          (format t "~&I am sure, I never knew ~s" person))))
+
+(let ((test1 '(forget 'fred))
+      (test2 '(forget 'fred))
+      (test3 '(forget 'betty)))
+  (format t "~&~s" test1)
+  (eval test1)
+  (format t "~&~s=~s~%~%" '*friends* *friends*)
+  (format t "~&~s" test2)
+  (eval test2)
+  (format t "~&~s=~s~%~%" '*friends* *friends*)
+  (format t "~&~s" test3)
+  (eval test3)
+  (format t "~&~s=~s~%~%" '*friends* *friends*))
