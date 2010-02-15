@@ -1,0 +1,11 @@
+(defun it-length (x)
+  (let ((list-len 0))
+    (dolist (e x list-len)
+      (incf list-len))))
+
+(let ((test1 '(it-length '(1 2 3 4 5)))
+      (test2 '(it-length '(1)))
+      (test3 '(it-length '())))
+  (format t "~&~s = ~s" test1 (eval test1))
+  (format t "~&~s = ~s" test2 (eval test2))
+  (format t "~&~s = ~s" test3 (eval test3)))

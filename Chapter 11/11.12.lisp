@@ -1,0 +1,13 @@
+(defun power-of-2 (n)
+  (do ((result 1 (incf result result))
+       (i 1 (incf i)))
+    ((> i n) result)))
+
+(let ((test1 '(power-of-2 0))
+      (test2 '(power-of-2 1))
+      (test3 '(power-of-2 2))
+      (test4 '(power-of-2 3)))
+  (format t "~&~s = ~s" test1 (eval test1))
+  (format t "~&~s = ~s" test2 (eval test2))
+  (format t "~&~s = ~s" test3 (eval test3))
+  (format t "~&~s = ~s" test4 (eval test4)))
