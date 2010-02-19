@@ -1,0 +1,13 @@
+(defun subprop (sym elem prop)
+  (setf (get sym prop) (delete elem (get sym prop))))
+
+(let ((test1 '(setf (get 'alpha 'fooprop) '(a b c d e)))
+      (test2 '(subprop 'alpha 'd 'fooprop))
+      (test3 '(get 'alpha 'fooprop)))
+  (format t "~&~s = ~s" test3 (eval test3))
+  (format t "~&Setting: ~s" test1)
+  (eval test1)
+  (format t "~&~s = ~s" test3 (eval test3))
+  (format t "~&Testing ~s: " test2)
+  (eval test2)
+  (format t "~&~s = ~s" test3 (eval test3)))

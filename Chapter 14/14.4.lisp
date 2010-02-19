@@ -1,0 +1,13 @@
+(defmacro simple-rotatef (a b)
+  `(let ((c ,a))
+     (setq ,a ,b)
+     (setq ,b c)))
+
+(let ((one 1)
+      (two 2)
+      (test1 '(simple-rotatef one two)))
+  (format t "~&~s = ~s; ~s = ~s" 'one one 'two two)
+  (format t "~&Running ~s" test1)
+  (simple-rotatef one two)
+  ;(eval test1)
+  (format t "~&~s = ~s; ~s = ~s" 'one one 'two two))

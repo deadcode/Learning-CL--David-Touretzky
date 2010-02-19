@@ -1,0 +1,98 @@
+(setf crypto-text
+      '("zj ze kljjls jf slapzi ezvlij pib kl jufwxuj p hffv jupi jf"
+        "enlpo pib slafml pvv bfwkj"))
+
+(defvar *decipher-table*)
+(defvar *encipher-table*)
+(setf *encipher-table* (make-hash-table))
+(setf *decipher-table* (make-hash-table))
+
+(defun make-substitution (from to)
+  (setf (gethash from *decipher-table*) to)
+  (setf (gethash to *encipher-table*) from)
+  t)
+
+(defun undo-substitution (from)
+  (let ((to (gethash from *decipher-table*)))
+    (setf (gethash from *decipher-table*) nil)
+    (setf (gethash to *encipher-table*) nil)
+    t))
+
+(defun clear ()
+  (clrhash *decipher-table*)
+  (clrhash *encipher-table*))
+
+(defun decipher-string (enc-str)
+  (do* ((len (length enc-str))
+        (dec-str (make-string len :initial-element #\Space))
+        (idx 0 (incf idx)))
+    ((equal idx len) dec-str)
+    (let* ((enc-ch (aref enc-str idx))
+           (dec-ch (gethash enc-ch *decipher-table*)))
+      (if dec-ch
+        (setf (aref dec-str idx) dec-ch)))))
+
+(defun show-line (enc-str)
+  (let ((dec-str (decipher-string enc-str)))
+    (format t "~&~A" enc-str)
+    (format t "~&~A" dec-str)))
+
+(defun show-text (secret)
+  (format t "~&--------------------")
+  (dolist (enc-str secret)
+    (show-line enc-str)
+    (format t "~%~%"))
+  (format t "~&--------------------"))
+
+(defun get-first-char (x)
+  (char-downcase
+    (char (format nil "~A" x) 0)))
+
+(defun read-letter ()
+  (let ((inp (read)))
+    (cond ((or (equal inp 'end)
+               (equal inp 'undo))
+           inp)
+          (t (get-first-char inp)))))
+
+(defun sub-letter (enc-ch)
+  (let ((foo (gethash enc-ch *decipher-table*)))
+    (when foo
+      (format t "~&'~c' has already been decipher as '~c'!" enc-ch foo)
+      (return-from sub-letter nil))
+    (format t "~&What does '~c' decipher to? " enc-ch)
+    (let* ((dec-ch (read-letter))
+           (already-dec-ch (gethash dec-ch *encipher-table*)))
+      (cond ((not (characterp dec-ch))
+             (format t "~&Please enter a character only")
+             nil)
+            (already-dec-ch
+              (format t "~&But '~c' already deciphers to '~c'!" already-dec-ch dec-ch)
+              nil)
+            (t (make-substitution enc-ch dec-ch)
+               t)))))
+
+(defun undo-letter ()
+  (format t "Undo which letter? ")
+  (let* ((undo-ch (read-letter))
+         (dec-ch (gethash undo-ch *decipher-table*)))
+    (cond ((not (characterp undo-ch))
+           (format t "~&Please enter a character only")
+           nil)
+          ((not dec-ch)
+           (format t "~&But '~c' is not deciphered yet!" undo-ch)
+           nil)
+          (t (undo-substitution undo-ch)
+             t))))
+
+(defun solve (secret)
+  (labels ((get-input ()
+                      (format t "~&Substitute which letter? ")
+                      (read-letter)))
+    (show-text secret)
+    (do ((inp (get-input) (get-input)))
+      ((equal inp 'end) t)
+      (cond ((equal inp 'undo) (undo-letter))
+            ((characterp inp) (sub-letter inp))
+            (t (format t "~&Don't know what to do with that!")))
+      (show-text secret))))

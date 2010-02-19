@@ -1,0 +1,13 @@
+(defmacro set-mutual (a b)
+  `(let ((c ',a))
+     (setq ,a ',b)
+     (setq ,b c)))
+
+(let ((one 'one)
+      (two 'two)
+      (test1 '(set-mutual one two)))
+  (format t "~&~s = ~s; ~s = ~s" 'one one 'two two)
+  (format t "~&Running ~s" test1)
+  (set-mutual one two)
+  ;(eval test1)
+  (format t "~&~s = ~s; ~s = ~s" 'one one 'two two))

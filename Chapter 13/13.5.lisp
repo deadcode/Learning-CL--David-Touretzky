@@ -1,0 +1,33 @@
+(setf *hist-array* nil)
+(setf *total-points* 0)
+
+(defun new-histogram (n)
+  (setf *hist-array* (make-array n :initial-element 0))
+  (setf *total-points* 0)
+  t)
+
+(defun record-value (n)
+  (cond ((and (>= n 0)
+              (< n (length *hist-array*)))
+         (incf (aref *hist-array* n))
+         (incf *total-points*)
+         t)
+        (t (format t "~&Value out of range")
+           nil)))
+
+(defun print-hist-line (n)
+  (let ((val (aref *hist-array* n)))
+    (format t "~&~2S [~3S] " n val)
+    (dotimes (i val)
+      (format t "*"))))
+
+(defun print-histogram ()
+  (let ((rows (length *hist-array*)))
+    (dotimes (row rows)
+      (print-hist-line row))
+    (format t "~&   ~S total" *total-points*)))
+
+(new-histogram 21)
+(dotimes (i 1000)
+  (record-value (random 21)))
+(print-histogram)
